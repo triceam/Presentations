@@ -5,7 +5,7 @@
 
 
 	
-jQuery(function() {
+jQuery(() => {
 	jQuery('#demo-menu a').each(function() { // highlight active menu
 		var linkedExample = (/demo\/([a-z\-]*)/.exec(this.href) || [])[1];
 		if (linkedExample == example) this.parentNode.className = 'active';
@@ -16,7 +16,7 @@ jQuery(function() {
 	});
 	
 	// key listeners for the previous and next arrows
-	jQuery(document).keydown(function (e) {
+	jQuery(document).keydown(e => {
 		var anchor;
 		if (e.target.tagName != 'INPUT') {
 			if (e.keyCode == 39) {
@@ -36,15 +36,15 @@ jQuery(function() {
 	})
 });
 function viewOptions(btn, example) {
-	var options = demo[example].options, 
-		s = '';
-		
-	function clean(str) {
+    var options = demo[example].options;
+    var s = '';
+
+    function clean(str) {
 		return str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	}
-	
-	function doLevel(level, obj) {
-		jQuery.each(obj, function(member, value) {
+
+    function doLevel(level, obj) {
+		jQuery.each(obj, (member, value) => {
 			// compute indentation
 			var indent = '';
 			for (var j = 0; j < level; j++) indent += '	';
@@ -60,7 +60,7 @@ function viewOptions(btn, example) {
 				
 			else if (jQuery.isArray(value)) {
 				s += indent + member +": [";
-				$.each(value, function(member, value) {
+				$.each(value, (member, value) => {
 					if (typeof value == 'string')
 						s += "'"+ clean(value) +"', ";
 						
@@ -87,16 +87,16 @@ function viewOptions(btn, example) {
 		});
 		// strip out stray commas
 		//s = s.replace(/,([\s]?)$/, '\n$1}');
-	};
-	
-	doLevel(0, options);
-	
-	// strip out stray commas
-	s = s.replace(/,\n([\s]?)}/g, '\n$1}');
-	s = s.replace(/,\n$/, '');
-	
-	// pop up the Highslide
-	hs.htmlExpand(btn, { 
+	}
+
+    doLevel(0, options);
+
+    // strip out stray commas
+    s = s.replace(/,\n([\s]?)}/g, '\n$1}');
+    s = s.replace(/,\n$/, '');
+
+    // pop up the Highslide
+    hs.htmlExpand(btn, { 
 		width: 1000,
 		align: 'center',
 		dimmingOpacity: .1,

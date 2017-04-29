@@ -82,12 +82,12 @@ BitmapChart.prototype.reset = function( event ) {
 	this.resize();
 }
 
-BitmapChart.prototype.resize = function( event ) {
+BitmapChart.prototype.resize = event => {
 	var chart = lastChart;
 	chart.invalidateLayout();
 }
 
-BitmapChart.prototype.invalidateLayout = function( event ) {
+BitmapChart.prototype.invalidateLayout = event => {
 	//log ("invalid");
 	var chart = lastChart;
 	if ( chart.invalidationTimeout )
@@ -95,7 +95,7 @@ BitmapChart.prototype.invalidateLayout = function( event ) {
 	chart.invalidationTimeout = setTimeout( chart.validateLayout, 100 );
 }
 
-BitmapChart.prototype.validateLayout = function( event ) {
+BitmapChart.prototype.validateLayout = event => {
 	//log("valid");
 	var chart = lastChart;
 	
@@ -293,7 +293,7 @@ BitmapChart.prototype.render = function() {
 }
 
 
-BitmapChart.prototype.setPixel = function(imageData, x, y, r, g, b, a) {
+BitmapChart.prototype.setPixel = (imageData, x, y, r, g, b, a) => {
 	//log( x + "," + y );
     index = (x + y * imageData.width) * 4;
     imageData.data[index+0] = r;
@@ -343,7 +343,7 @@ BitmapChart.prototype.mouseMoveHandler = function(event) {
 }
 
 
-BitmapChart.prototype.bodyMouseMoveHandler = function(event) {
+BitmapChart.prototype.bodyMouseMoveHandler = event => {
 
 	var chart = lastChart;
 	if (chart) 	
@@ -377,17 +377,17 @@ BitmapChart.prototype.updateSelection = function(event) {
 	} 
 }
 
-BitmapChart.prototype.mouseOverHandler = function(event) {
+BitmapChart.prototype.mouseOverHandler = event => {
 
 	$('#mouseLabel').stop(true, true).fadeIn();
 }
 
-BitmapChart.prototype.mouseOutHandler = function(event) {
+BitmapChart.prototype.mouseOutHandler = event => {
 
 	$('#mouseLabel').stop(true, true).fadeOut();
 }
 
-BitmapChart.prototype.mouseDownHandler = function(event) {
+BitmapChart.prototype.mouseDownHandler = event => {
 	var evtTarget;
 	
 	if(document.ontouchmove === undefined)
@@ -404,7 +404,7 @@ BitmapChart.prototype.mouseDownHandler = function(event) {
 	lastChart = chart;
 }
 
-BitmapChart.prototype.mouseUpHandler = function(event) {
+BitmapChart.prototype.mouseUpHandler = event => {
 try{
 	var chart = lastChart;
 	if ( chart && chart.isSelecting )

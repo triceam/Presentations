@@ -1,25 +1,23 @@
 // From https://gist.github.com/1343518
 // Modified by Hakim to handle markdown indented with tabs
-(function(){
+((() => {
 
   [].forEach.call( document.querySelectorAll('[data-markdown]'), function  fn(elem){
-    
-    // strip leading whitespace so it isn't evaluated as code
-    var text = elem.innerHTML;
-    
-    var leadingWs = text.match(/^\n?(\s*)/)[1].length,
-        leadingTabs = text.match(/^\n?(\t*)/)[1].length;
+      // strip leading whitespace so it isn't evaluated as code
+      var text = elem.innerHTML;
 
-    if( leadingTabs > 0 ) {
-        text = text.replace( new RegExp('\\n?\\t{' + leadingTabs + '}','g'), '\n' );
-    }
-    else if( leadingWs > 1 ) {
-        text = text.replace( new RegExp('\\n? {' + leadingWs + '}','g'), '\n' );
-    }
+      var leadingWs = text.match(/^\n?(\s*)/)[1].length;
+      var leadingTabs = text.match(/^\n?(\t*)/)[1].length;
 
-    // here, have sum HTML
-    elem.innerHTML = (new Showdown.converter()).makeHtml(text);
+      if( leadingTabs > 0 ) {
+          text = text.replace( new RegExp('\\n?\\t{' + leadingTabs + '}','g'), '\n' );
+      }
+      else if( leadingWs > 1 ) {
+          text = text.replace( new RegExp('\\n? {' + leadingWs + '}','g'), '\n' );
+      }
 
+      // here, have sum HTML
+      elem.innerHTML = (new Showdown.converter()).makeHtml(text);
   });
 
-})();
+}))();
